@@ -734,6 +734,12 @@ class VideoTrackTranscriber(_TrackTranscriber):
                 descriptor["Length"].value = int(media.available_range.duration.value)
 
         for key, value in descriptor_dict.items():
+            # ClassName is not an AAF property
+            if key == "ClassName":
+                continue
+            # Don't overwrite already set properties
+            if key in descriptor:
+                continue
             descriptor[key].value = value
 
         return descriptor
@@ -894,6 +900,12 @@ class AudioTrackTranscriber(_TrackTranscriber):
         )))
 
         for key, value in descriptor_dict.items():
+            # ClassName is not an AAF property
+            if key == "ClassName":
+                continue
+            # Don't overwrite already set properties
+            if key in descriptor:
+                continue
             descriptor[key].value = value
 
         return descriptor
